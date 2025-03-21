@@ -1,0 +1,88 @@
+openapi: 3.0.0
+info:
+  title: Google Sheets API
+  description: A RESTful API to interact with Google Sheets.
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+    description: Local server
+paths:
+  /sheet:
+    get:
+      summary: Retrieve all rows
+      description: Fetch all rows from the Google Sheet.
+      responses:
+        '200':
+          description: A list of rows.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  range:
+                    type: string
+                  majorDimension:
+                    type: string
+                  values:
+                    type: array
+                    items:
+                      type: array
+                      items:
+                        type: string
+        '500':
+          description: Internal server error.
+    post:
+      summary: Create a new row
+      description: Append a new row to the Google Sheet.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+      responses:
+        '201':
+          description: Row created successfully.
+        '500':
+          description: Internal server error.
+  /sheet/{id}:
+    put:
+      summary: Update a specific row
+      description: Update the data in a specific row of the Google Sheet.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The row number to update.
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+      responses:
+        '200':
+          description: Row updated successfully.
+        '500':
+          description: Internal server error.
+    delete:
+      summary: Delete a specific row
+      description: Clear the data in a specific row of the Google Sheet.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The row number to delete.
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Row deleted successfully.
+        '500':
+          description: Internal server error.
