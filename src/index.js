@@ -1,6 +1,6 @@
 require('dotenv').config({ path: './config/.env' }); // Load .env from the config folder
 const express = require('express');
-const sheetRoutes = require('../routes/sheetRoutes'); // Import routes
+const sheetRoutes = require('./routes/sheetRoutes'); // Update path to routes
 const app = express();
 
 const PORT = process.env.PORT || 3000;
